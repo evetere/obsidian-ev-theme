@@ -1,34 +1,191 @@
+/* TOKYONIGHT — Render-Markdown palette for Obsidian preview */
+:root{
+ --md-font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", "Fira Code", Menlo, "Segoe UI Mono", monospace; --md-font-size: 13px;
+  /* Headings */
+  --md-h1: #82aaff; --md-h1-bg: #2c314a;
+  --md-h2: #ffc777; --md-h2-bg: #38343d;
+  --md-h3: #c3e88d; --md-h3-bg: #32383f;
+  --md-h4: #4fd6be; --md-h4-bg: #273644;
+  --md-h5: #c099ff; --md-h5-bg: #32304a;
+  --md-h6: #fca7ea; --md-h6-bg: #383148;
+
+  /* Code */
+  --md-code-bg: #1e2030; --md-code-fg: #c8d3f5;
+  --md-inline-code-bg: #444a73; --md-inline-code-fg: #82aaff;
+  --md-code-info: #82aaff;
+
+  /* Links, bullets, table */
+  --md-link: #65bcff; --md-link-title: #4fd6be;
+  --md-bullet: #ff966c;
+  --md-table-head: #ff757f; --md-table-row: #ff966c;
+
+  /* Callouts/alerts */
+  --md-success: #b3f6c0; --md-info: #0db9d7; --md-hint: #4fd6be;
+  --md-warn: #ffc777; --md-error: #c53b53;
+}
+
 body {
-	--radius-s: 0px;
-	--radius-m: 0px;
-	--radius-l: 0px;
-	--input-radius: 0px;
-	--tab-radius-active: 0px;
-	--checkbox-radius: 0px;
-	--toggle-radius: 0px;
-	--toggle-thumb-radius: 0px;
-	--slider-thumb-radius: 0px;
+  --font-text-theme: var(--md-font-family);
+  /* --h1-color: red; */
 }
 
-.workspace-tab-header.is-active::before, .workspace-tab-header.is-active::after {
-	display: none;
+.markdown-preview-view,
+.cm-editor .cm-content { font-family: var(--md-font-family) !important; font-size: var(--md-font-size) !important; font-feature-settings: "liga" 1, "calt" 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+/* Headings (preview) */
+.markdown-preview-view h1{ color:var(--md-h1); background:var(--md-h1-bg); padding:.25rem .5rem; border-radius:6px; }
+.markdown-preview-view h2{ color:var(--md-h2); background:var(--md-h2-bg); padding:.2rem .45rem; border-radius:5px; }
+.markdown-preview-view h3{ color:var(--md-h3); background:var(--md-h3-bg); padding:.18rem .4rem; border-radius:4px; }
+.markdown-preview-view h4{ color:var(--md-h4); background:var(--md-h4-bg); padding:.15rem .35rem; border-radius:3px; }
+.markdown-preview-view h5{ color:var(--md-h5); background:var(--md-h5-bg); padding:.12rem .3rem; border-radius:3px; }
+.markdown-preview-view h6{ color:var(--md-h6); background:var(--md-h6-bg); padding:.1rem .25rem; border-radius:3px; }
+
+/* Code blocks & inline code */
+.markdown-preview-view pre, .markdown-preview-view code:not(.inline){ background:var(--md-code-bg); color:var(--md-code-fg); padding:.6rem; border-radius:6px; }
+.markdown-preview-view code.inline, .markdown-preview-view p code, .markdown-preview-view li code{ background:var(--md-inline-code-bg); color:var(--md-inline-code-fg); padding:.12em .28em; border-radius:4px; }
+
+/* Code language label (some renderers) */
+.markdown-preview-view .language-label, .markdown-preview-view .code-header { color:var(--md-code-info); }
+
+/* Blockquotes */
+.markdown-preview-view blockquote{ border-left:3px solid var(--md-bullet); padding-left:1rem; color:inherit; background:transparent; }
+
+/* Links */
+.markdown-preview-view a{ color:var(--md-link); text-decoration:underline; }
+.markdown-preview-view a[ href^="http" ]::after{ color:var(--md-link-title); }
+
+
+/* Bullets & list markers */
+.markdown-preview-view li::marker{ color:var(--md-bullet); }
+
+/* Checkboxes (preview) */
+.markdown-preview-view input[type="checkbox"]{ accent-color: var(--md-success); }
+
+/* Tables */
+.markdown-preview-view table th{ color:var(--md-table-head); }
+.markdown-preview-view table td{ color:var(--md-table-row); }
+
+/* Callouts — common patterns used by Obsidian and plugins */
+.markdown-preview-view .callout{ border-left:4px solid var(--md-info); padding:.6rem .8rem; border-radius:6px; background:transparent; }
+.markdown-preview-view .callout[data-callout="tip"], .markdown-preview-view .callout[data-callout="success"]{ border-left-color:var(--md-success); }
+.markdown-preview-view .callout[data-callout="warning"]{ border-left-color:var(--md-warn); }
+.markdown-preview-view .callout[data-callout="danger"], .markdown-preview-view .callout[data-callout="error"]{ border-left-color:var(--md-error); }
+.markdown-preview-view .callout .callout-title{ color:inherit; font-weight:600; }
+
+/* Small helpers */
+.markdown-preview-view .katex, .markdown-preview-view .math{ color:var(--md-code-info); }
+
+
+.cm-editor .cm-line .cm-hmd-heading-1,
+.cm-editor .cm-header-1,
+.cm-editor .cm-hmd-heading-1,
+.cm-editor .cm-heading-1 {
+  color: var(--md-h1) !important;
+  background: var(--md-h1-bg) !important;
+  padding: 0.08rem 0.3rem !important;
+  border-radius: 6px !important;
+}
+.cm-editor .cm-line .cm-hmd-heading-2,
+.cm-editor .cm-header-2,
+.cm-editor .cm-hmd-heading-2,
+.cm-editor .cm-heading-2 {
+  color: var(--md-h2) !important;
+  background: var(--md-h2-bg) !important;
+  padding: 0.06rem 0.28rem !important;
+  border-radius: 5px !important;
+}
+/* H3-H6 (same pattern) */
+.cm-editor .cm-line .cm-hmd-heading-3,
+.cm-editor .cm-header-3,
+.cm-editor .cm-hmd-heading-3 { color: var(--md-h3) !important; background: var(--md-h3-bg) !important; padding:.05rem .25rem; border-radius:4px; }
+.cm-editor .cm-line .cm-hmd-heading-4,
+.cm-editor .cm-header-4,
+.cm-editor .cm-hmd-heading-4 { color: var(--md-h4) !important; background: var(--md-h4-bg) !important; padding:.04rem .22rem; border-radius:3px; }
+.cm-editor .cm-line .cm-hmd-heading-5,
+.cm-editor .cm-header-5 { color: var(--md-h5) !important; background: var(--md-h5-bg) !important; padding:.03rem .18rem; border-radius:3px; }
+.cm-editor .cm-line .cm-hmd-heading-6,
+.cm-editor .cm-header-6 { color: var(--md-h6) !important; background: var(--md-h6-bg) !important; padding:.02rem .15rem; border-radius:3px; }
+
+/* Inline code and fenced-code regions */
+.cm-editor .cm-inline-code,
+.cm-editor .cm-formatting-code,
+.cm-editor .cm-formatting-inline-code {
+  background: var(--md-inline-code-bg) !important;
+  color: var(--md-inline-code-fg) !important;
+  padding: .08rem .24rem !important;
+  border-radius: 4px !important;
+}
+.cm-editor .cm-fencedCode,
+.cm-editor .cm-block,
+.cm-editor .cm-code-block {
+  background: var(--md-code-bg) !important;
+  color: var(--md-code-fg) !important;
+  padding: .5rem .6rem !important;
+  border-radius: 6px !important;
 }
 
-svg * {
-	stroke-linecap: square;
-	stroke-linejoin: miter;
-	rx: 0;
-	ry: 0;
+/* Blockquote in editor */
+.cm-editor .cm-line .cm-quote,
+.cm-editor .cm-formatting-blockquote,
+.cm-editor .cm-line .cm-blockquote {
+  border-left: 3px solid var(--md-bullet) !important;
+  padding-left: .75rem !important;
+  background: transparent !important;
 }
 
-.menu {
-	padding: var(--size-2-1);
-}
+/* Links */
+.cm-editor .cm-link,
+.cm-editor .cm-url,
+.cm-editor .cm-formatting-link { color: var(--md-link) !important; text-decoration: underline !important; }
+.cm-editor .cm-link .cm-link-label,
+.cm-editor .cm-formatting-link .cm-link-label { color: var(--md-link-title) !important; }
 
-.menu-item {
-	padding: var(--size-4-1) var(--size-4-2);
-}
+/* Bullets & list markers */
+.cm-editor .cm-line .cm-list-marker,
+.cm-editor .cm-formatting-list { color: var(--md-bullet) !important; }
 
-.menu-separator {
-	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
-}
+/* Checkboxes (some plugins render as clickable in editor) */
+.cm-editor .cm-checkbox,
+.cm-editor .cm-formatting-checkbox { accent-color: var(--md-success) !important; color: var(--md-success) !important; }
+
+/* Tables - headers/rows tokens */
+.cm-editor .cm-table-header,
+.cm-editor .cm-formatting-table-header { color: var(--md-table-head) !important; }
+.cm-editor .cm-table-cell,
+.cm-editor .cm-formatting-table-cell { color: var(--md-table-row) !important; }
+
+/* Math / KaTeX in editor (if present) */
+.cm-editor .cm-math,
+.cm-editor .cm-katex { color: var(--md-code-info) !important; }
+
+/* Small helpers to ensure visibility on dark backgrounds */
+.cm-editor .cm-line { caret-color: inherit; }
+
+
+
+/* Heading badges (preview) */
+.markdown-preview-view h1::before { content: "①"; display:inline-grid; place-items:center; width:1.35em; height:1.35em; margin-right:.5ch;
+  border-radius:50%; background:var(--md-h1-bg); color:var(--md-h1); font-weight:700; font-size:.95em; }
+.markdown-preview-view h2::before { content: "② "; background:var(--md-h2-bg); color:var(--md-h2); }
+.markdown-preview-view h3::before { content: "③ "; background:var(--md-h3-bg); color:var(--md-h3); }
+.markdown-preview-view h4::before { content: "④ "; background:var(--md-h4-bg); color:var(--md-h4); }
+.markdown-preview-view h5::before { content: "⑤ "; background:var(--md-h5-bg); color:var(--md-h5); }
+.markdown-preview-view h6::before { content: "⑥ "; background:var(--md-h6-bg); color:var(--md-h6); }
+
+/* Editor (CodeMirror) — common selectors; adjust if your classes differ */
+.cm-editor .cm-header-1::before { content:"① "; display:inline-grid; place-items:center; width:1.15em;height:1.15em;margin-right:.45ch;border-radius:50%;
+  background:var(--md-h1-bg); color:var(--md-h1); font-weight:700; font-size:.9em; }
+
+.cm-editor .cm-header-2::before { content:"② "; background:var(--md-h2-bg); color:var(--md-h2); }
+.cm-editor .cm-header-3::before { content:"③ "; background:var(--md-h3-bg); color:var(--md-h3); }
+.cm-editor .cm-header-4::before { content: "④ "; background:var(--md-h4-bg); color:var(--md-h4); }
+.cm-editor .cm-header-5::before { content: "⑤ "; background:var(--md-h5-bg); color:var(--md-h5); }
+.cm-editor .cm-header-6::before { content: "⑥ "; background:var(--md-h6-bg); color:var(--md-h6); }
+
+
+.cm-editor .cm-formatting-header-1::before { display : none; }
+.cm-editor .cm-formatting-header-2::before { display : none; }
+.cm-editor .cm-formatting-header-3::before { display : none; }
+.cm-editor .cm-formatting-header-4::before { display : none; }
+.cm-editor .cm-formatting-header-5::before { display : none; }
+.cm-editor .cm-formatting-header-6::before { display : none; }
